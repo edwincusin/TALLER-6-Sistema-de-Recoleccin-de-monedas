@@ -11,16 +11,21 @@ public class ControllerGamePersonake : MonoBehaviour
     public Animator animador;
     public bool mirandoDerecha = true;
 
+    private SaludJugador salud;
+
     // Start se ejecuta una sola vez, al iniciar
     void Start()
     {
         cuerpoRigido = GetComponent<Rigidbody2D>();
         animador = GetComponent<Animator>();
+        salud = GetComponent<SaludJugador>();
     }
 
     // Update se ejecuta en cada frame
     void Update()
     {
+        if (salud.enRechazo) return;   // Durante el empujón no se mueve con teclas
+
         //MOVIMIENTO HORIZONTAL
         float movimiento = Input.GetAxis("Horizontal");
         cuerpoRigido.linearVelocity = new Vector2(movimiento * velocidad, cuerpoRigido.linearVelocityY);
